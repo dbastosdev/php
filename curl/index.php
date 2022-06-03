@@ -1,6 +1,6 @@
 <?php
 
-// Tem a função de fazer a integração com serviços externos
+// Tem a função de fazer a integração com serviços externos (API)
 
 // Iniciando a biblioteca curl
 $ch = curl_init();
