@@ -1,6 +1,16 @@
 <?php
 // usando o arquivo de configuração
 require_once 'config.php';
+
+// Listando dados
+$lista = []; // cria lista vazia
+
+// faz query no banco de dados
+$sql = $pdo->query("SELECT * FROM usuario");
+if($sql->rowCount() > 0){
+    $lista = $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
 ?>
 
 <!-- View -->
@@ -16,5 +26,16 @@ require_once 'config.php';
         <th>email</th>
         <th>ações</th>
     </tr>
+    <?php foreach ($lista as $usuario): ?>
+        <tr>
+            <td><?php echo $usuario['id']; ?></td>
+            <td><?php echo $usuario['nome']; ?></td>
+            <td><?php echo $usuario['email']; ?></td>
+            <td>
+                <a href="editar.php">[editar]</a>
+                <a href="deletar.php">[deletar]</a>
+            </td>
+        </tr>
+    <?php endforeach ?>
 
 </table>
