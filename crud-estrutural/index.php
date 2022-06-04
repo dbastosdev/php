@@ -32,8 +32,8 @@ if($sql->rowCount() > 0){
             <td><?php echo $usuario['nome']; ?></td>
             <td><?php echo $usuario['email']; ?></td>
             <td>
-                <a href="editar.php">[editar]</a>
-                <a href="deletar.php">[deletar]</a>
+                <a href="editar.php?id=<?=$usuario['id'];?>">[editar]</a>   <!--Envia id editar.php -->
+                <a href="deletar.php?id=<?=$usuario['id'];?>">[deletar]</a> <!--Envia id deletar.php -->
             </td>
         </tr>
     <?php endforeach ?>
