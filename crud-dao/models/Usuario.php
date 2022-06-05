@@ -1,6 +1,7 @@
 <?php
 
 // Definição de classe - Entidade
+// Trata-se apenas de um modelo relacionado a entidade que passará pelo CRUD.
 
 class Usuario {
 
@@ -23,7 +24,7 @@ class Usuario {
     }
 
     public function setNome($n) {
-        $this->nome= ucwords(trim($n));
+        $this->nome = ucwords(trim($n));
     }
 
     public function getEmail(){
@@ -31,12 +32,14 @@ class Usuario {
     }
 
     public function setEmail($e) {
-        $this->nome= strtoLower(trim($e));
+        $this->email= strtolower(trim($e));
     }
 }
 
 // Interface DAO da entidade usuário. Toda implementação dessa interface deverá ter esses métodos
 // É como um contrato. Sem que uma classe implementar uma interface, deverá definir esses métodos
+// Apenas determina as operações que o DAO de usuário deverá implementar.
+
 interface UsuarioDAO {
     public function add(Usuario $u); // Cria um usuário
     public function findAll(); // Lê todos usuários
@@ -44,3 +47,13 @@ interface UsuarioDAO {
     public function update(Usuario $u); // Atualiza um usuário
     public function delete($id); // Deleta um usuário
 }
+
+/*
+$u = new Usuario();
+$u->setId(1);
+$u->setNome('dfhdsaofhadsofidjas');
+$u->setEmail('3');
+echo $u->getId();
+echo $u->getNome();
+echo $u->getEmail();
+*/
