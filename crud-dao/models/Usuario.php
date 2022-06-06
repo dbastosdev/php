@@ -43,12 +43,13 @@ class Usuario {
 interface UsuarioDAO {
     public function add(Usuario $u); // Cria um usuário
     public function findAll(); // Lê todos usuários
+    public function findByEmail($email); // Faz a busca no banco por usuários com o e-mail do parâmetro
     public function findById($id); // Lê um único usuário
     public function update(Usuario $u); // Atualiza um usuário
     public function delete($id); // Deleta um usuário
 }
 
-/*
+/* TESTE
 $u = new Usuario();
 $u->setId(1);
 $u->setNome('dfhdsaofhadsofidjas');

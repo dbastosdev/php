@@ -18,7 +18,15 @@ class UsuarioDaoMySql implements UsuarioDAO {
     // Métodos a serem implementados devio ao usuo da interface DAO
 
     public function add(Usuario $u){
-        
+        // Adiciona o usuário no banco
+        $sql = $this->pdo->prepare("INSERT INTO usuario (nome, email) VALUES (:nome, :email)");
+        $sql->bindValue(':nome', $u->getNome());
+        $sql->bindValue(':email', $u->getEmail());
+        $sql->execute();
+
+        // Retorna o usuário cadastrado
+        $u->setId($this->pdo->lastInsertId); // pega último id cadastrado. Função do pdo
+        return $u;
     }
     public function findAll() {
 
@@ -45,6 +53,32 @@ class UsuarioDaoMySql implements UsuarioDAO {
         }
         return $array;
     } 
+
+    public function findByEmail($email) {
+        // Query no banco de modo seguro
+        $sql = $this->pdo->prepare("SELECT * FROM usuario WHERE email = :email");
+        $sql->bindValue(':email', $email);
+        $sql->execute(); 
+
+        // Checando resultados
+        // Se a consulta retornar dados, retorna os dados já cadastrados
+        if($sql->rowCount() > 0){
+            $data = $sql->fetch();
+            $u = new Usuario();
+            $u->setId($data['id']);
+            $u->setNome($data['nome']);
+            $u->setEmail($data['email']);
+
+            return $u;
+        
+        // Se não encontrar, retorna falso e permite o cadastro
+        } else {
+            return false;
+        }
+        
+        
+    }
+
     public function findById($id){
         
     } 
