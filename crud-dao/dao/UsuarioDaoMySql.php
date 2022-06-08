@@ -119,6 +119,8 @@ class UsuarioDaoMySql implements UsuarioDAO {
 
     } 
     public function delete($id){
-        
+        $sql = $this->pdo->prepare("DELETE FROM usuario WHERE id = :id");
+        $sql->bindValue(':id', $id);
+        $sql->execute();
     } 
 }
