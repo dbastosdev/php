@@ -12,7 +12,7 @@ class UsuarioDaoMySql implements UsuarioDAO {
     // objeto por injeção de dependência que servirá para qualquer banco de dados
     // A partir da instanciação, é possível usar o atributo $pdo para fazer manipulações no banco de dados
     public function __construct(PDO $driver){
-        $this->pdo = $driver;
+        $this->pdo = $driver; // atributo que é um objeto
     }
 
     // Métodos a serem implementados devio ao usuo da interface DAO
@@ -80,10 +80,43 @@ class UsuarioDaoMySql implements UsuarioDAO {
     }
 
     public function findById($id){
+
+        // Código é igual ao findByEmail
+
+        // Query no banco de modo seguro
+        $sql = $this->pdo->prepare("SELECT * FROM usuario WHERE id = :id");
+        $sql->bindValue(':id', $id);
+        $sql->execute(); 
+
+        // Checando resultados
+        // Se a consulta retornar dados, retorna os dados já cadastrados
+        if($sql->rowCount() > 0){
+            $data = $sql->fetch();
+            $u = new Usuario();
+            $u->setId($data['id']);
+            $u->setNome($data['nome']);
+            $u->setEmail($data['email']);
+
+            return $u;
+        
+        // Se não encontrar, retorna falso e permite o cadastro
+        } else {
+            return false;
+        }
         
     } 
     public function update(Usuario $u){
-        
+        // Similar a implementação do add
+
+        // Adiciona o usuário no banco
+        $sql = $this->pdo->prepare("UPDATE usuario SET nome = :nome, email = :email WHERE id = :id");
+        $sql->bindValue(':nome', $u->getNome());
+        $sql->bindValue(':email', $u->getEmail());
+        $sql->bindValue(':id', $u->getId());
+        $sql->execute(); 
+
+        return true; // Indica a realização com sucesso do update
+
     } 
     public function delete($id){
         
