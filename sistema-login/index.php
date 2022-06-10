@@ -11,3 +11,8 @@ if(isset($_SESSION['id']) && empty($_SESSION['id']) == false) {
     header('Location: login.php');
     exit;
 }
+
+?>
+
+<br><br><br>
+<a href="deslogar.php">Sair</a>
