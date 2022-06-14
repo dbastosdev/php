@@ -18,3 +18,7 @@ outros usuários a se cadastrarem no sistema*/
 /*
  Ao usar o link, o sistema deverá avaliar se o código é válido e somente com isso permitir o cadastro de usuários
 */
+
+/*
+É possível ainda criar mais um campo no banco para ser incrementado a cada vez que o link for usado
+*/
